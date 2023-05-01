@@ -27,6 +27,9 @@ func NewClient(name string, email string) (*Client, error) {
 	}
 
 	err := client.Validate()
+	if err != nil {
+		return nil, err
+	}
 	return client, err
 }
 
