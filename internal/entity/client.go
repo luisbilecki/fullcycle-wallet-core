@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"errors"
 	"time"
 
 	"github.com/go-playground/validator"
@@ -11,6 +12,7 @@ type Client struct {
 	ID        string
 	Name      string `validate:"required"`
 	Email     string `validate:"required"`
+	Accounts  []*Account
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -25,10 +27,7 @@ func NewClient(name string, email string) (*Client, error) {
 	}
 
 	err := client.Validate()
-	if err != nil {
-		return nil, err
-	}
-	return client, nil
+	return client, err
 }
 
 func (c *Client) Update(name string, email string) error {
@@ -39,4 +38,12 @@ func (c *Client) Update(name string, email string) error {
 
 func (c *Client) Validate() error {
 	return validator.New().Struct(c)
+}
+
+func (c *Client) AddAccount(account *Account) error {
+	if account.Client.ID != c.ID {
+		return errors.New("account does not belong to client")
+	}
+	c.Accounts = append(c.Accounts, account)
+	return nil
 }
