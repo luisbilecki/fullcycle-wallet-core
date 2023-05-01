@@ -3,13 +3,13 @@ package client
 import (
 	"testing"
 
-	mockClient "github.com/luisbilecki/fullcycle-wallet-core/internal/gateway/mock"
+	mocks "github.com/luisbilecki/fullcycle-wallet-core/internal/gateway/mock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
 
 func TestCreateClientUseCase_Execute(t *testing.T) {
-	clientGateway := &mockClient.ClientGatewayMock{}
+	clientGateway := &mocks.ClientGatewayMock{}
 	clientGateway.On("Save", mock.Anything).Return(nil)
 
 	createClientUseCase := NewCreateClientUseCase(clientGateway)
