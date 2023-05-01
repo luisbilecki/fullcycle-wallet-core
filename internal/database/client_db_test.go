@@ -15,7 +15,7 @@ type ClientDBTestSuite struct {
 	clientDB *ClientDB
 }
 
-func (s *ClientDBTestSuite) SetupSuite() {
+func (s *ClientDBTestSuite) SetupTest() {
 	db, err := sql.Open("sqlite3", ":memory:")
 	s.Nil(err)
 	s.db = db
