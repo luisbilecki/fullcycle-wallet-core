@@ -31,7 +31,12 @@ func NewClient(name string, email string) (*Client, error) {
 	return client, nil
 }
 
+func (c *Client) Update(name string, email string) error {
+	c.Name = name
+	c.Email = email
+	return c.Validate()
+}
+
 func (c *Client) Validate() error {
 	return validator.New().Struct(c)
-	// validationErrors := err.(validator.ValidationErrors)
 }
